@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clubhouse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-ABC123DEF456GHIJK789LMNO10111213PQRSTU==" crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <style>
+        body {
+            min-height: 100vh;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .center-text {
+            text-align: center;
+            margin-top: 50vh;
+            transform: translateY(-50%);
+            font-family: 'GT Maru', sans-serif;
+        }
+
+        #arrow {
+            display: block;
+            margin: 20px auto;
+            height: 40px;
+            width: auto;
+            animation: moveUpDown 1.5s infinite alternate;
+        }
+
+        @keyframes moveUpDown {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(20px);
+            }
+        }
+
+        @font-face {
+            font-family: 'GT Maru';
+            src: url('path/to/GTMaru-Regular.ttf') format('truetype');
+        }
+
+        .rounded-button {
+            border-radius: 50px;
+            border-style: solid;
+            border-width: 2px;
+            width: 160px;
+            height: 70px;
+        }
+
+        .nunito-font {
+            font-family: 'Nunito', sans-serif;
+            color: #1f2022;
+        }
+
+        .section {
+            margin: 16px 0;
+            padding: 0 0 0 40px;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+    <link rel="icon" type="image/x-icon" href="club.ico">
+
+</head>
+
+<body style="background-color: #fbf8ef;">
+    <div>
+        <header style="position: fixed; top: 0; padding: 36px 64px; width: 100%; justify-content: space-between;">
+            <nav class="navbar" background-color: #ffffff; width: 100%; z-index: 100;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="club.png" alt="Logo" width="78" height="64"
+                            class="d-inline-block align-text-top">
+                    </a>
+                    <div class="section">
+                        <ul class="nunito-font mr-3" style="font-weight: bold; margin-right: 20px;">blog</ul>
+                        <ul class="nunito-font mr-3" style="font-weight: bold; margin-right: 20px;">jobs</ul>
+                        <button type="button" class="btn btn-outline-dark nunito-font rounded-button"
+                            style="font-weight: bold;">get clubhouse</button>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="center-text">
+            <div id="dynamicContent">
+                <img src="clubtext.svg" height="100" width="auto">
+            </div>
+            <p class="nunito-font hidden"
+                style="color: #242020; font-weight: bold; font-size: 48px;" id="friends">friends over followers</p>
+            <div id="buttonContainer"></div>
+            <img id="arrow" src="arrow.svg">
+        </div>
+
+        <footer
+            style="position: fixed; bottom: 0; width: 100%; display: flex; justify-content: space-between; padding: 20px; color: #242020; font-weight: bold;">
+            <div class="section">
+                <ul class="nunito-font mr-3">privacy</ul>
+                <ul class="nunito-font mr-3">terms</ul>
+                <ul class="nunito-font mr-3">FAQs <i class="fab fa-instagram"></i> <i class="fab fa-twitter"></i></ul>
+            </div>
+            <div class="section">
+                <ul class="nunito-font mr-3"
+                    style="font-size: 12px;">&copy; 2023 Alpha Exploration Co.</ul>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </div>
+    <script>
+        var textShown = false;
+
+        window.addEventListener('scroll', function () {
+            var scrollPosition = window.scrollY;
+            var dynamicContent = document.getElementById('dynamicContent');
+            var textToShow = document.querySelector('.center-text p');
+            var arrow = document.getElementById('arrow');
+            var buttonContainer = document.getElementById('buttonContainer');
+            var button;
+
+            if (scrollPosition > 100 && !textShown) {
+                document.body.style.backgroundColor = 'yellow';
+                dynamicContent.innerHTML = '';
+                var textNode = document.createTextNode('friends over followers');
+                dynamicContent.appendChild(textNode);
+                textToShow.classList.remove('hidden');
+                textShown = true;
+
+                // button banaya 
+                button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'btn btn-outline-dark nunito-font rounded-button';
+                button.textContent = 'get clubhouse';
+                buttonContainer.appendChild(button);
+
+            } else if (scrollPosition <= 100 && textShown) {
+                document.body.style.backgroundColor = '#fbf8ef';
+                dynamicContent.innerHTML = '<img src="clubtext.svg" height="100" width="auto">';
+                textToShow.classList.add('hidden');
+                textShown = false;
+                buttonContainer.innerHTML = '';
+            }
+
+            if (scrollPosition > 50) {
+                arrow.style.display = 'none';
+            } else {
+                arrow.style.display = 'block';
+            }
+        });
+
+    </script>
+</body>
+
+</html>
