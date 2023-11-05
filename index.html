@@ -61,11 +61,15 @@
         }
 
         .rounded-button {
-            border-radius: 50px;
+            border-radius: 9999px;
+            cursor: pointer;
+            min-height: 2rem;
+            font-weight: 800;
             border-style: solid;
             border-width: 2px;
-            width: 160px;
-            height: 70px;
+            width: 150px;
+            height: 50px;
+            margin-left: 35px;
         }
 
         .nunito-font {
@@ -79,6 +83,106 @@
             display: flex;
             align-items: center;
         }
+
+    /* photos girega*/
+    .leave {
+  width: 8em;
+  height: 8em;
+  border-radius: 0 50% 50% 50%;
+  position:absolute;
+  opacity:1;
+}
+.leave::before {
+  width: 0.3em;
+  height: 1em;
+  top: 1.3em;
+  left: 1.5em;
+  transform:rotate(-50deg);
+}
+.leave-1{
+  top: -3em;
+  left: 5vw;
+  background: var(--leave_4);  
+  animation:moveLeave 8s infinite;
+}
+.leave-1::before{
+  background: var(--leave_4);  
+
+}
+.leave-2{
+  top: -3em;
+  left: 30vw;
+  background:var(--leave_2);  
+  transform:rotate(-90deg);
+  animation:moveLeave2 8s infinite both;
+}
+.leave-2::before{
+  background:var(--leave_2);   
+}
+
+.leave-3{
+  top:-3em;
+  left: 70vw;
+  background:var(--leave_3);  
+  transform:rotate(90deg);
+  animation:moveLeave3 8s infinite;
+}
+.leave-3::before{
+  background:var(--leave_3);   
+}
+.leave-4{
+  top: -3em;
+  left: 90vw;
+  background:var(--leave_1);  
+  transform:rotate(180deg);
+  animation:moveLeave4 8s infinite;
+}
+.leave-4::before{
+  background:var(--leave_1);  
+}
+
+/* **********Animation************ */
+@keyframes moveLeave{
+  0%{
+   opacity:1;
+   transform:translate(0,0);
+  }
+  100%{
+   opacity:0;
+   transform:translate(95vw,95vh);
+  }
+}
+
+@keyframes moveLeave2{
+  0%{
+   opacity:1;
+   transform:translate(0,0);
+  }
+  100%{
+   opacity:0;
+   transform:translate(0,95vh);
+  }
+}
+@keyframes moveLeave3{
+  0%{
+   transform: translate(0,0) rotate(90deg);
+  }
+  100%{
+   transform: translate(0,95vh) rotate(180deg);
+  }
+}
+
+@keyframes moveLeave4{
+  0%{
+   opacity:1;
+   transform:translate(0,0) rotate(180deg);
+  }
+  100%{
+   opacity:0;
+   transform:translate(-95vw,95vh) rotate(0deg);
+  }
+}
+
     </style>
     <link rel="icon" type="image/x-icon" href="club.ico">
 
@@ -103,6 +207,16 @@
                 </div>
             </nav>
         </header>
+<!--photos girega
+<img src="a.webp"  class="leave leave-1">
+<img src="b.webp"  class="leave leave-2">
+<img src="c.webp"  class="leave leave-3">
+<img src="d.webp"  class="leave leave-4">
+<img src="e.webp"  class="leave leave-1">
+<img src="f.jpeg"  class="leave leave-2">
+<img src="g.webp"  class="leave leave-3">
+<img src="h.webp"  class="leave leave-4">
+--->
 
         <div class="center-text">
             <div id="dynamicContent">
@@ -126,7 +240,7 @@
             </div>
             <div class="section">
                 <ul class="nunito-font mr-3"
-                    style="font-size: 12px;">&copy; 2023 Alpha Exploration Co.</ul>
+                    style="font-size: 12px; font-weight: 600;">&copy; 2023 Alpha Exploration Co.</ul>
             </div>
         </footer>
 
@@ -135,46 +249,57 @@
     </div>
     <script>
         var textShown = false;
-
+      
         window.addEventListener('scroll', function () {
-            var scrollPosition = window.scrollY;
-            var dynamicContent = document.getElementById('dynamicContent');
-            var textToShow = document.querySelector('.center-text p');
-            var arrow = document.getElementById('arrow');
-            var buttonContainer = document.getElementById('buttonContainer');
-            var button;
-
-            if (scrollPosition > 100 && !textShown) {
-                document.body.style.backgroundColor = 'yellow';
-                dynamicContent.innerHTML = '';
-                var textNode = document.createTextNode('friends over followers');
-                dynamicContent.appendChild(textNode);
-                textToShow.classList.remove('hidden');
-                textShown = true;
-
-                // button banaya 
-                button = document.createElement('button');
-                button.type = 'button';
-                button.className = 'btn btn-outline-dark nunito-font rounded-button';
-                button.textContent = 'get clubhouse';
-                buttonContainer.appendChild(button);
-
-            } else if (scrollPosition <= 100 && textShown) {
-                document.body.style.backgroundColor = '#fbf8ef';
-                dynamicContent.innerHTML = '<img src="clubtext.svg" height="100" width="auto">';
-                textToShow.classList.add('hidden');
-                textShown = false;
-                buttonContainer.innerHTML = '';
-            }
-
-            if (scrollPosition > 50) {
-                arrow.style.display = 'none';
+          var scrollPosition = window.scrollY;
+          var dynamicContent = document.getElementById('dynamicContent');
+          var textToShow = document.querySelector('.center-text p');
+          var arrow = document.getElementById('arrow');
+          var buttonContainer = document.getElementById('buttonContainer');
+          var button;
+      
+          if (scrollPosition > 100 && !textShown) {
+            document.body.style.backgroundColor = 'yellow';
+            dynamicContent.innerHTML = '';
+            var textNode = document.createTextNode('friends over followers');
+            dynamicContent.appendChild(textNode);
+            textToShow.classList.remove('hidden');
+            textShown = true;
+      
+            // button banaya
+            button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'btn btn-outline-dark nunito-font rounded-button';
+            button.textContent = 'get clubhouse';
+            buttonContainer.appendChild(button);
+      
+            // larger number
+            var friendsCount = document.getElementById('friends');
+            var followersCount = document.getElementById('followers');
+            if (friendsCount.textContent > followersCount.textContent) {
+              friendsCount.style.display = 'block';
+              followersCount.style.display = 'none';
             } else {
-                arrow.style.display = 'block';
+              friendsCount.style.display = 'none';
+              followersCount.style.display = 'block';
             }
+          } else if (scrollPosition <= 100 && textShown) {
+            document.body.style.backgroundColor = '#fbf8ef';
+            dynamicContent.innerHTML = '<img src="clubtext.svg" height="100" width="auto">';
+            textToShow.classList.add('hidden');
+            textShown = false;
+            buttonContainer.innerHTML = '';
+          }
+      
+          if (scrollPosition > 50) {
+            arrow.style.display = 'none';
+          } else {
+            arrow.style.display = 'block';
+          }
         });
-
-    </script>
+      
+      </script>
+      
 </body>
 
 </html>
